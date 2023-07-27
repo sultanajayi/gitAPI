@@ -23,7 +23,7 @@
 					}
 				}
 			],
-			"_postman_id": "5f7428b0-9468-4893-81fb-9292ba811390",
+			"id": "5f7428b0-9468-4893-81fb-9292ba811390",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -67,7 +67,7 @@
 					}
 				}
 			],
-			"_postman_id": "5ebb0322-951d-466c-b18e-f992b8884f6e",
+			"id": "5ebb0322-951d-466c-b18e-f992b8884f6e",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -95,7 +95,7 @@
 					}
 				}
 			],
-			"_postman_id": "a939e354-8b59-4166-9f51-2f0589911eb5",
+			"id": "a939e354-8b59-4166-9f51-2f0589911eb5",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -131,7 +131,7 @@
 					}
 				}
 			],
-			"_postman_id": "5f400f98-c617-44eb-b9a4-45b17df79edb",
+			"id": "5f400f98-c617-44eb-b9a4-45b17df79edb",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -161,13 +161,16 @@
 						"exec": [
 							"var response = JSON.parse(responseBody);\r",
 							"tests[\"Validating error\"]= response.error == \"Missing password\";\r",
-							"tests[\"Validating Status Code\"] = responseCode.code ==400;"
+							"tests[\"Validating Status Code\"] = responseCode.code ==400;\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
-			"_postman_id": "159c7ec2-c9df-4dcc-bd68-843a95552d46",
+			"id": "159c7ec2-c9df-4dcc-bd68-843a95552d46",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
