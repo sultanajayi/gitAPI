@@ -162,7 +162,7 @@
 							"var response = JSON.parse(responseBody);\r",
 							"tests[\"Validating error\"]= response.error == \"Missing password\";\r",
 							"tests[\"Validating Status Code\"] = responseCode.code ==400;\r",
-							"pm.test(\"Status code is 200\", function () {\r",
+							"pm.test(\"Status code is 400\", function () {\r",
 							"    pm.response.to.have.status(400);\r",
 							"});"
 						],
