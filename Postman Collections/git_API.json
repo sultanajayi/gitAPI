@@ -123,9 +123,23 @@
 					"script": {
 						"id": "8d13c4f6-38f3-4b2b-bd0a-ed7f84b4fb1f",
 						"exec": [
-							"var response = JSON.parse(responseBody);\r",
-							"tests[\"Validating Token\"]= response.token==\"token\";\r",
-							"tests[\"Validating Status Code\"] = responseCode.code ==200"
+							"",
+							"// Retrieve the saved \"token\" value from the variable",
+							"pm.test(\"Validate response against saved 'token' value\", function () {",
+							"    var savedToken = pm.globals.get(\"token\");",
+							"    // Alternatively, you can use pm.environment.get(\"token\") if it was stored on an environment",
+							"    var responseBody = pm.response.json();",
+							"    var responseToken = responseBody.token;",
+							"",
+							"    pm.expect(responseToken).to.equal(savedToken);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});"
 						],
 						"type": "text/javascript"
 					}
