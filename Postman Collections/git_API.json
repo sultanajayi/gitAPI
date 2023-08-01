@@ -13,14 +13,6 @@
 					"script": {
 						"id": "81d7a272-1414-4041-a040-21d0ac0d4436",
 						"exec": [
-							"tests[\"Validating Status Code\"] = responseCode.code == 200;\r",
-							"tests[\"Validating Response Body\"] = responseBody.has(\"data\");\r",
-							"\r",
-							"var response = JSON.parse(responseBody);\r",
-							"tests[\"Page no\"] = response.page == 2;\r",
-							"\r",
-							"\r",
-							"\r",
 							"pm.test(\"Response status code is 200\", function () {\r",
 							"    pm.expect(pm.response.code).to.equal(200);\r",
 							"});\r",
