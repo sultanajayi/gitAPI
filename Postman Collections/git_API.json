@@ -141,10 +141,33 @@
 					"script": {
 						"id": "fda0e044-8dab-4af1-8e2b-b883105f847c",
 						"exec": [
-							" var response = JSON.parse (responseBody);\r",
-							" tests[\"Validating name\"]= response.name == \"morpheus\";\r",
-							" tests[\"Validating job\"]= response.job == \"leader\";\r",
-							" tests[\"Validating Status Code\"] = responseCode.code == 201;"
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has the required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.name).to.eql('morpheus');\r",
+							"    pm.expect(responseData.job).to.eql('leader');\r",
+							"    pm.expect(responseData.id).to.exist.and.to.be.a('string');\r",
+							"    pm.expect(responseData.createdAt).to.exist.and.to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name should be a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Job is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData.job).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Job should not be empty\");\r",
+							"});\r",
+							"\r",
+							""
 						],
 						"type": "text/javascript"
 					}
