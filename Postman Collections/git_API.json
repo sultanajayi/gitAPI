@@ -89,9 +89,34 @@
 					"script": {
 						"id": "4e8b4c91-b8d1-4c55-a3e4-2f32a9872eed",
 						"exec": [
-							"var response = JSON.parse(responseBody);\r",
-							"tests[\"first name\"] = response.data.first_name ==\"Janet\";\r",
-							"tests[\"last name\"] = response.data.last_name ==\"Weaver\";"
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"First name is 'Janet'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.first_name).to.eql(\"Janet\");",
+							"});",
+							"",
+							"pm.test(\"Last name is 'Weaver'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.last_name).to.eql(\"Weaver\");",
+							"});",
+							"",
+							"pm.test(\"Email is in a valid format\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.email).to.match(/^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$/);",
+							"});",
+							"",
+							"pm.test(\"Verify that the support object is present in the response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.support).to.exist;",
+							"});",
+							"",
+							"pm.test(\"The URL in the support object is a non-empty string\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.support.url).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});"
 						],
 						"type": "text/javascript"
 					}
