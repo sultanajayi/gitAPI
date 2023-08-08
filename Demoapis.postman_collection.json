@@ -1,0 +1,311 @@
+{
+	"info": {
+		"_postman_id": "5e411a57-24df-419d-b6a8-59d264e73ac4",
+		"name": "Demoapis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18149950",
+		"_collection_link": "https://bold-robot-444912.postman.co/workspace/My-Workspace~8ec37617-43a4-4341-8651-e6d5a10113c9/collection/18149950-5e411a57-24df-419d-b6a8-59d264e73ac4?action=share&creator=18149950&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Page2userData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the 'page' field in the response\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('page');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the per_page field in the response\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData.per_page).to.exist.and.to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the 'total' field in the response\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData.total).to.exist;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the total_pages field in the response\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.total_pages).to.exist.and.to.be.a('number');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Single User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"First name is 'Janet'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.first_name).to.eql(\"Janet\");",
+							"});",
+							"",
+							"pm.test(\"Last name is 'Weaver'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.last_name).to.eql(\"Weaver\");",
+							"});",
+							"",
+							"pm.test(\"Email is in a valid format\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.email).to.match(/^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$/);",
+							"});",
+							"",
+							"pm.test(\"Verify that the support object is present in the response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.support).to.exist;",
+							"});",
+							"",
+							"pm.test(\"The URL in the support object is a non-empty string\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.support.url).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response has the required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.name).to.eql('morpheus');\r",
+							"    pm.expect(responseData.job).to.eql('leader');\r",
+							"    pm.expect(responseData.id).to.exist.and.to.be.a('string');\r",
+							"    pm.expect(responseData.createdAt).to.exist.and.to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name should be a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Job is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData.job).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Job should not be empty\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"eve.holt@reqres.in\",\r\n    \"password\": \"cityslicka\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/login",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login- Unsuccessful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Validating error\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.eql(\"Missing password\");\r",
+							"});\r",
+							"pm.test(\"Validating Status Code\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(400);\r",
+							"});\r",
+							"pm.test(\"Response has the required fields\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"    pm.expect(jsonData.error).to.exist;\r",
+							"});\r",
+							"pm.test(\"Error message is not empty\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.exist.and.to.not.be.empty;\r",
+							"});\r",
+							"pm.test(\"Error message is of type string\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.error).to.be.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"peter@klaven\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/login",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
