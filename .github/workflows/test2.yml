@@ -20,6 +20,7 @@ jobs:
 
     - name: Install Newman
       run: npm install -g newman
+           npm install -g newman-reporter-htmlextra
 
     - name: Run Postman Collection
-      run: newman run "Postman Collections"/git_API.json  # Replace with your sub-collection file name
+      run: newman run "Postman Collections"/git_API.json -r htmlextra  # Replace with your sub-collection file name
